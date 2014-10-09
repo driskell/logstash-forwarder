@@ -105,10 +105,10 @@ func (p *Prospector) Prospect(resume map[string]*ProspectorInfo, registrar_chan 
     newlastscan := time.Now()
     p.iteration++ // Overflow is allowed
 
-    for _, config := range p.FileConfigs {
-      for _, path := range config.Paths {
+    for k := range p.FileConfigs {
+      for _, path := range p.FileConfigs[k].Paths {
         // Scan - flag false so new files always start at beginning
-        p.scan(path, &config, registrar_chan, output)
+        p.scan(path, &p.FileConfigs[k], registrar_chan, output)
       }
     }
 
